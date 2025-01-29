@@ -1,5 +1,6 @@
 venv
 data.csv
+.env
 generated_headlines.txt
 news_content.txt
 logs

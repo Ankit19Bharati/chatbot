@@ -7,6 +7,9 @@ from functools import wraps
 import logging
 from logging.handlers import RotatingFileHandler
 import pandas as pd
+import os
+
+port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
 
 # Load environment variables
 load_dotenv()
@@ -125,5 +128,5 @@ def index():
 
 if __name__ == "__main__":
     # Do not run with debug=True in production
-    app.run(host="127.0.0.1", port=8080)
+    app.run(host="127.0.0.1", port=port)
 
