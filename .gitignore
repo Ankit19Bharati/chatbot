@@ -1,0 +1,5 @@
+venv
+data.csv
+generated_headlines.txt
+news_content.txt
+logs

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Retail Intelligence Chatbot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #5cb85c;
+            --hover-color: #4cae4c;
+            --error-color: #dc3545;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .chatbox {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            background-color: #fff;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: 20%;
+        }
+
+        .bot-message {
+            background-color: #f5f5f5;
+            margin-right: 20%;
+        }
+
+        .input-form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background-color: var(--hover-color);
+        }
+
+        .error {
+            color: var(--error-color);
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            .input-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Retail Intelligence Chatbot</h1>
+
+        {% if error %}
+        <div class="error">
+            <i class="fas fa-exclamation-circle"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="chatbox" id="chatbox">
+            {% for message in chat_history %}
+            <div class="response">
+                <strong>User:</strong> {{ message.user }}<br>
+                <strong>Chatbot:</strong> {{ message.bot }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <form method="POST" class="input-form">
+            <div class="input-group">
+                <!-- <input type="text" name="user_name" placeholder="Your name" value="{{ user_name }}" required
+                    maxlength="50"> -->
+                <input type="text" name="user_input" placeholder="Type your message..." required maxlength="1000">
+            </div>
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i>
+                Send
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Scroll chatbox to bottom on load
+        document.addEventListener('DOMContentLoaded', function () {
+            const chatbox = document.getElementById('chatbox');
+            chatbox.scrollTop = chatbox.scrollHeight;
+        });
+    </script>
+</body>
+
+</html>
